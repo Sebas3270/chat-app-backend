@@ -26,7 +26,6 @@ export class JwtStrategy extends PassportStrategy( Strategy ){
         const { id: uid } = payload;
 
         const user = await this.userModel.findById(uid);
-        console.log(user);
         if(!user) throw new UnauthorizedException('Token not valid');
 
         return user;

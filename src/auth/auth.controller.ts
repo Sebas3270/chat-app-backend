@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { AuthService } from './auth.service';
 import { Auth, GetUser } from './decorators';
 import { CreateAuthDto } from './dto/create-auth.dto';
@@ -16,21 +17,15 @@ export class AuthController {
     return this.authService.createUser(createUserDto);
   }
 
-  @Get('login')
+  @Post('login')
   login(@Body() loginDto: LoginUserDto){
     return this.authService.login(loginDto);
   }
 
   @Get('renew')
   @Auth()
-  renew( @GetUser() user:UserDocument ){
+  renew( @GetUser() user:UserDocument){
     return this.authService.renewToken(user);
-  }
-
-  @Get('private')
-  @Auth()
-  private(){
-    return 'Is working'
   }
 
   // @Post()
@@ -38,10 +33,11 @@ export class AuthController {
   //   return this.authService.create(createAuthDto);
   // }
 
-  // @Get()
-  // findAll() {
-  //   return this.authService.findAll();
-  // }
+  @Get('users')
+  @Auth()
+  findAll( @GetUser() user: UserDocument, @Query() paginationDto: PaginationDto ) {
+    return this.authService.findAll(user, paginationDto);
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
