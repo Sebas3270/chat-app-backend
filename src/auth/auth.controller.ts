@@ -5,7 +5,6 @@ import { Auth, GetUser } from './decorators';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { UserDocument } from './entities/user.entity';
 
 @Controller('auth')

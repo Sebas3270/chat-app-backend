@@ -28,6 +28,11 @@ export class User {
     default: false
   })
   online: boolean;
+
+  @Prop({
+    default: null,
+  })
+  image: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
