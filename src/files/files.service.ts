@@ -1,11 +1,9 @@
-import { Injectable, InternalServerErrorException, NotFoundException, StreamableFile } from '@nestjs/common';
-import { createReadStream, existsSync } from 'fs';
-import { dirname, join } from 'path';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException, StreamableFile } from '@nestjs/common';
+import { existsSync } from 'fs';
+import { join } from 'path';
 import { UploadApiErrorResponse, UploadApiResponse, v2 as cloudinary } from 'cloudinary'
 import { ConfigService } from '@nestjs/config';
-import toStream from 'buffer-to-stream';
 import * as streamifier from 'streamifier';
-import { Readable } from 'stream';
 import { AuthService } from 'src/auth/auth.service';
 import { UserDocument } from 'src/auth/entities/user.entity';
 
@@ -36,7 +34,10 @@ export class FilesService {
   }
 
   async updateImageProfile(file: Express.Multer.File, user: UserDocument){
-    try {
+   
+      if(!file){
+        throw new BadRequestException('There was not file in the request');
+      }
 
       if ( user.image ){ 
         const image = this.getImageName(user.image);
@@ -52,9 +53,7 @@ export class FilesService {
 
       return newUser;
       
-    } catch (error) {
-      console.log('error: ',error);
-    }
+    
   }
 
   async deleteImageProfile(user: UserDocument){

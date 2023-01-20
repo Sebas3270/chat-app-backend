@@ -27,19 +27,8 @@ export class MessagesService {
   async findAllById(fromId: Types.ObjectId, user: UserDocument, paginationDto: PaginationDto) {
 
     const myId = user.id;
-    // const fromId = id;
 
     const {limit = 30, offset = 0} = paginationDto;
-
-    console.log(user.id);
-
-    // const messages = await this.messageModel.find({
-    //   $or: [{from: myId, to: fromId}, {from: fromId, to: myId}]
-    // })
-    //   .limit(limit)
-    //   .skip(offset);
-
-    console.log(fromId);
 
       const messages = await this.messageModel.find({
         $or: [{from: myId, to: fromId}, {from: fromId, to: myId}]

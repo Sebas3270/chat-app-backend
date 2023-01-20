@@ -38,7 +38,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage(chatType.privateMessage)
   async handlePrivateMessage(client: Socket, payload: CreateMessageDto){
-    console.log(payload);
     await this.chatService.saveMessage(payload);
     this.wss.to(payload.to).emit(chatType.privateMessage, payload);
   }

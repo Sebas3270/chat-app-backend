@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, Res, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, Res, Req, Request } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
@@ -26,7 +26,7 @@ export class FilesController {
   @Post('user')
   @UseInterceptors( FileInterceptor('file', {
         fileFilter: fileFilter,
-        storage: memoryStorage()
+        storage: memoryStorage(),
       }
     )
   )
