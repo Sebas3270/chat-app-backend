@@ -16,12 +16,14 @@ You can see the [Mobile App](https://github.com/Sebas3270/chat-app) to see the i
 npm install
 ```
 3. Clone ```.env.template``` file and rename it to ```.env```
-4. Change requested env variables
-5. Set up mongo database
+4. Create a [Cloudinary](https://cloudinary.com/) account to have a media management for the profile picture of the users
+5. Create a folder in your Cloudinary Media Library called ```chat_app```
+6. Change requested env variables
+7. Set up mongo database
 ```
 docker-compose up -d
 ```
-6. Run the project
+8. Run the project
 ```
 npm run start:dev
 ```
